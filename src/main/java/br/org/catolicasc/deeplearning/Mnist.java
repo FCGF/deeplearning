@@ -69,7 +69,7 @@ public class Mnist {
 
         MultiLayerNetwork model = new MultiLayerNetwork(conf);
         model.init();
-        //print the score with every 1 iteration
+       
         model.setListeners(new ScoreIterationListener(1));
 
         System.out.println("Treinando modelo");
@@ -77,13 +77,12 @@ public class Mnist {
             model.fit(mnistTrain);
         }
 
-
         System.out.println("Avaliando modelo");
-        Evaluation eval = new Evaluation(qtdeSaida); //create an evaluation object with 10 possible classes
+        Evaluation eval = new Evaluation(qtdeSaida); 
         while(mnistTest.hasNext()){
             DataSet next = mnistTest.next();
-            INDArray output = model.output(next.getFeatureMatrix()); //get the networks prediction
-            eval.eval(next.getLabels(), output); //check the prediction against the true class
+            INDArray output = model.output(next.getFeatureMatrix()); 
+            eval.eval(next.getLabels(), output); 
         }
 
         System.out.println(eval.stats());
